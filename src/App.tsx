@@ -1,6 +1,8 @@
-// import Alert from "./components/Alert.tsx";
+import Alert from "./components/Alert.tsx";
 // import Button from "./components/Button.tsx";
-// import { useState } from "react";
+import { useState } from "react";
+import Button from "./components/Button/Button.tsx";
+import Message from "./Message.tsx";
 import ListGroup from "./components/ListGroup/ListGroup.tsx";
 import "./App.css";
 function App() {
@@ -8,7 +10,7 @@ function App() {
   const handleSelectItem = (item: string) => {
     console.log(item);
   };
-  // const [alertVisitble, setAlert] = useState(false);
+  const [alertVisitble, setAlert] = useState(false);
   return (
     <div>
       <ListGroup
@@ -16,6 +18,16 @@ function App() {
         heading={"cities"}
         onSelectItem={handleSelectItem}
       />
+      <Message></Message>
+      <Button
+        color="primary"
+        onClick={() => {
+          setAlert(true);
+        }}
+      >
+        my button
+      </Button>
+      {alertVisitble && <Alert setAlert={setAlert}> my alert</Alert>}
       {/* {
         <Alert>
           hello <span>eeee</span>
