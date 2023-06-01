@@ -1,11 +1,10 @@
 // import { ReactNode } from "react";
-
-interface Props {
+interface Props1 {
   children: string;
   setAlert: (args: boolean) => void;
 }
 
-function Alert({ children, setAlert }: Props) {
+function Alert({ children, setAlert }: Props1) {
   return (
     <div className="alert alert-primary alert-dismissible">
       {children}
