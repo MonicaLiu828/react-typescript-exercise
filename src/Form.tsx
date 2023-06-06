@@ -4,7 +4,7 @@ const Form = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm();
   console.log(register("name"));
   // useRef to get the dom value, we need to set it up to null at first or it will get undefined will cost error
@@ -56,7 +56,9 @@ const Form = () => {
           className="form-control"
         ></input>
       </div>
-      <button type="submit">submit</button>
+      <button disabled={!isValid} type="submit">
+        submit
+      </button>
     </form>
   );
 };

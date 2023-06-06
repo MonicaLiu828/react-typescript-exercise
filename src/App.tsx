@@ -7,15 +7,49 @@ import ListGroup from "./components/ListGroup/ListGroup.tsx";
 import "./App.css";
 import ExpandableText from "./ExpandableText.tsx";
 import Form from "./Form.tsx";
+import categories from "./expense-tracker/categories.ts";
+
+import ExpenseFilter from "./expense-tracker/components/ExpenseFilter.tsx";
+import ExpenseList from "./expense-tracker/components/ExpenseList.tsx";
+import ExpenseForm from "./expense-tracker/components/ExpenseForm.tsx";
+
 function App() {
-  const items = ["New York", "san fran", "london", "china"];
-  const handleSelectItem = (item: string) => {
-    console.log(item);
-  };
-  const [alertVisitble, setAlert] = useState(false);
+  // const items = ["New York", "san fran", "london", "china"];
+  // const handleSelectItem = (item: string) => {
+  //   console.log(item);
+  // };
+  // const [alertVisitble, setAlert] = useState(false);
+
+  const [expenses, setExpenses] = useState([
+    { id: 1, description: "saa", amount: 10, category: "utility" },
+    { id: 2, description: "sada", amount: 20, category: "groceries" },
+    { id: 3, description: "sda", amount: 30, category: "utility" },
+    { id: 4, description: "sadaa", amount: 40, category: "utility" },
+  ]);
+
+  const [selectCategory, SetSelectCategory] = useState("");
+
+  const visibleExpenses = selectCategory
+    ? expenses.filter((e) => e.category === selectCategory)
+    : expenses;
+
   return (
     <div>
-      <Form></Form>
+      <div>
+        <ExpenseForm
+          mb-5
+          onSubmit={(expense) =>
+            setExpenses([...expenses, { ...expense, id: expenses.length + 1 }])
+          }
+        ></ExpenseForm>
+      </div>
+      <br></br>
+      <ExpenseFilter
+        onSelectCategory={(e) => {
+          SetSelectCategory(e);
+        }}
+      ></ExpenseFilter>
+      {/* <Form></Form>
       <ListGroup
         items={items}
         heading={"cities"}
@@ -30,7 +64,7 @@ function App() {
       >
         my button
       </Button>
-      {alertVisitble && <Alert setAlert={setAlert}> my alert</Alert>}
+      {alertVisitble && <Alert setAlert={setAlert}> my alert</Alert>} */}
       {/* {
         <Alert>
           hello <span>eeee</span>
@@ -45,7 +79,7 @@ function App() {
         my button
       </Button>
       {alertVisitble && <Alert setAlert={setAlert}> my alert</Alert>} */}
-      <ExpandableText>
+      {/* <ExpandableText>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
         convallis lacus ut mauris tincidunt, vel cursus velit eleifend. Aliquam
         ultricies metus sit amet sollicitudin fermentum. Quisque accumsan dictum
@@ -64,7 +98,13 @@ function App() {
         nisl. Sed malesuada turpis risus, ac cursus enim congue at. Vestibulum
         eu tellus non justo ullamcorper eleifend eu in lectus. Nunc non ultrices
         diam. Suspendisse et leo commodo, cursus
-      </ExpandableText>
+      </ExpandableText> */}
+      <ExpenseList
+        expenses={visibleExpenses}
+        onDelete={(id) => {
+          setExpenses(expenses.filter((e) => e.id !== id));
+        }}
+      ></ExpenseList>
     </div>
   );
 }
